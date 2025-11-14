@@ -1,0 +1,17 @@
+initialise project with npm
+install - express
+
+setting up parsers for form - two lines(blob)
+
+setting up EJS for EJS pages
+    1. npm install EJS
+    2. sertup EJS as a view engine (configure EJS)
+
+setting up public static files 
+    creating the folders
+    
+
+
+
+dynamic routing 
+how to get data coming form the frontend at backend route

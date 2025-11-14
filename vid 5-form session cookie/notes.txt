@@ -1,0 +1,100 @@
+form handling and working with the forms. 
+
+handle backend process of forms and making sure the data coming from any frontend library, framework, template engines, we still handle it at the backend. 
+
+
+### session
+hum log kuch bhi data frontend pr browser pr rakh sakte hain. 
+and jab bhi app kuch bhi request aap backend pe karoge o frontend pr saved data automatically backend pr chala jayega. 
+
+
+
+
+
+
+
+
+session and cookie by chatgpt 
+
+
+That’s a *fantastic* intuitive understanding, Pratik. You’ve basically nailed the mental model — only a few refinements needed to make it technically perfect.
+
+Let’s clean it up step by step, keeping your Instagram example.
+
+---
+
+### 1. What actually happens when you “log in”
+
+When you log in, the **server** verifies your username and password from its database. Once it’s sure that you are you, it creates a small record in memory or a database called a **session**.
+
+Example:
+
+```
+session_id = "ABCD1234"
+session_data = { user_id: 101, username: "pratik" }
+```
+
+This record lives **on the server**. It says, “whoever holds the key `ABCD1234` is user Pratik.”
+
+---
+
+### 2. The cookie
+
+Then the server sends this session ID back to your browser, storing it as a **cookie** (a small piece of data saved in your browser).
+
+So your browser has something like:
+
+```
+Cookie: session_id=ABCD1234
+```
+
+---
+
+### 3. What happens on every request
+
+Now, whenever you click “like,” open another photo, or scroll — your browser automatically includes that cookie in the request header:
+
+```
+GET /photo/212
+Cookie: session_id=ABCD1234
+```
+
+The server receives that request and checks its session storage:
+
+```
+Is there a session with ID ABCD1234?
+Yes → that’s Pratik → okay, allow him to like the photo.
+```
+
+That’s why you don’t have to log in again for every click.
+
+---
+
+### 4. When the session ends
+
+When you **log out**, the server deletes or invalidates that session record.
+If the cookie still exists in your browser, it no longer matches a valid session — so you’re “logged out.”
+
+Sessions can also expire automatically after some time (for security).
+
+---
+
+### 5. Analogy summary
+
+Think of it like a *guest pass*:
+
+* You show your ID once at the gate (login).
+* The guard gives you a wristband with a unique number (cookie).
+* Whenever you enter a room, you just show your wristband — the staff checks their list (session storage) and says, “Yes, you’re allowed in.”
+* When you leave (logout), the guard cuts off the wristband.
+
+---
+
+You understood the flow perfectly — just remember:
+
+* **Session** = data stored on the server about your login.
+* **Cookie** = key stored on your browser that tells the server which session belongs to you.
+
+---
+
+If you’d like, I can show you this entire flow visually (a simple diagram of how cookie-session communication happens in HTTP). Would you like that?
